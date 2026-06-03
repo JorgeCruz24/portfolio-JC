@@ -1,0 +1,5 @@
+/* app.css - Main layout styles are in styles.css */
+main {
+  width: 100%;
+  overflow-x: hidden;
+}

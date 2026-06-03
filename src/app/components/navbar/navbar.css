@@ -1,0 +1,116 @@
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  padding: 1.5rem 0;
+  background: transparent;
+}
+
+.navbar-wrapper.scrolled {
+  padding: 0.75rem 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:not(.btn):hover {
+  color: var(--primary-color);
+}
+
+.nav-links a:not(.btn)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:not(.btn):hover::after {
+  width: 100%;
+}
+
+.mobile-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--bg-color-alt);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu a {
+  padding: 1rem 0;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.mobile-menu a.btn {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .mobile-menu.active {
+    display: flex;
+  }
+}

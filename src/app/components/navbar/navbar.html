@@ -1,0 +1,30 @@
+<header [class.scrolled]="isScrolled" class="navbar-wrapper">
+  <div class="container navbar-container">
+    <div class="logo" (click)="scrollTo('home')">
+      <h1>JC<span class="gradient-text">.</span></h1>
+    </div>
+
+    <!-- Desktop Menu -->
+    <nav class="nav-links desktop-menu">
+      <a (click)="scrollTo('home')">Inicio</a>
+      <a (click)="scrollTo('about')">Perfil</a>
+      <a (click)="scrollTo('skills')">Habilidades</a>
+      <a (click)="scrollTo('projects')">Proyectos</a>
+      <a (click)="scrollTo('contact')" class="btn btn-primary nav-btn">Contacto</a>
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-toggle" (click)="toggleMenu()">
+      <i class='bx' [class.bx-menu]="!isMenuOpen" [class.bx-x]="isMenuOpen"></i>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div class="mobile-menu" [class.active]="isMenuOpen">
+    <a (click)="scrollTo('home')">Inicio</a>
+    <a (click)="scrollTo('about')">Perfil</a>
+    <a (click)="scrollTo('skills')">Habilidades</a>
+    <a (click)="scrollTo('projects')">Proyectos</a>
+    <a (click)="scrollTo('contact')" class="btn btn-outline">Contacto</a>
+  </div>
+</header>
