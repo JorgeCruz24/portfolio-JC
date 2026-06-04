@@ -121,3 +121,7 @@
     margin-right: auto;
   }
 }
+
+.description {
+  text-align: justify;
+}

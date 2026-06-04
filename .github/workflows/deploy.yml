@@ -1,0 +1,32 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-size: '20'
+
+    - name: Instalar dependencias
+      run: npm ci
+
+    # Reemplaza los marcadores del environment.ts con tus Secrets reales de GitHub
+    - name: Inyectar Secretos de EmailJS
+      run: |
+        sed -i "s/EMAILJS_SERVICE_ID/${{ secrets.EMAILJS_SERVICE_ID }}/g" src/environments/environment.ts
+        sed -i "s/EMAILJS_TEMPLATE_ID/${{ secrets.EMAILJS_TEMPLATE_ID }}/g" src/environments/environment.ts
+        sed -i "s/EMAILJS_PUBLIC_KEY/${{ secrets.EMAILJS_PUBLIC_KEY }}/g" src/environments/environment.ts
+
+    - name: Compilar proyecto Angular
+      run: npm run build -- --configuration=production
+
+    # Los siguientes pasos serían para subirlo a tu hosting (GitHub Pages, Vercel, Firebase, etc.)
