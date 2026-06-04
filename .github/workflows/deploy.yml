@@ -1,8 +1,11 @@
-name: Deploy Portfolio
+name: Deploy Portfolio to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # Se activará cada vez que subas cambios a la rama main
+
+permissions:
+  contents: write # Permiso obligatorio para que GitHub pueda crear la rama de distribución
 
 jobs:
   build-and-deploy:
@@ -14,12 +17,11 @@ jobs:
     - name: Configurar Node.js
       uses: actions/setup-node@v4
       with:
-        node-size: '20'
+        node-version: '20'
 
     - name: Instalar dependencias
       run: npm ci
 
-    # Reemplaza los marcadores del environment.ts con tus Secrets reales de GitHub
     - name: Inyectar Secretos de EmailJS
       run: |
         sed -i "s/EMAILJS_SERVICE_ID/${{ secrets.EMAILJS_SERVICE_ID }}/g" src/environments/environment.ts
@@ -27,6 +29,11 @@ jobs:
         sed -i "s/EMAILJS_PUBLIC_KEY/${{ secrets.EMAILJS_PUBLIC_KEY }}/g" src/environments/environment.ts
 
     - name: Compilar proyecto Angular
-      run: npm run build -- --configuration=production
+      # REEMPLAZA "portfolio-JC" por el nombre exacto de tu repositorio en GitHub (respetando mayúsculas)
+      run: npm run build -- --configuration=production --base-href /portfolio-JC/
 
-    # Los siguientes pasos serían para subirlo a tu hosting (GitHub Pages, Vercel, Firebase, etc.)
+    - name: Desplegar en GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: dist/portafolio-front/browser # Revisa que coincida con tu carpeta de salida en dist/
+        branch: gh-pages # GitHub Actions creará esta rama automáticamente con los archivos de producción
